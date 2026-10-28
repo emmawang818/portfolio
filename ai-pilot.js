@@ -19,7 +19,7 @@
   dot.classList.toggle('is-interactive',Boolean(event.target.closest(interactive)));
   if(!cursorFrame)cursorFrame=requestAnimationFrame(()=>{
    cursorFrame=0;
-   dot.style.left=cursorX+'px';dot.style.top=cursorY+'px';
+   dot.style.transform=`translate3d(${cursorX}px,${cursorY}px,0) translate(-50%,-50%)`;
    dot.classList.add('is-visible');
    document.documentElement.classList.add('has-dot-cursor');
   });

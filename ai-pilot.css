@@ -13,7 +13,7 @@ main{width:60%;max-width:1200px;margin:32px auto 0}
 .case-footer span{font-size:12px;color:#999}
 @media(max-width:600px){.case-nav{padding:0 16px}.case-footer{padding:24px 16px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-.portfolio-cursor{position:fixed;left:0;top:0;width:40px;height:40px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:2147483647;opacity:0;transform:translate(-50%,-50%);transition:opacity .12s ease;will-change:left,top}
+.portfolio-cursor{position:fixed;left:0;top:0;width:40px;height:40px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:2147483647;opacity:0;transform:translate(-50%,-50%);transition:opacity .12s ease;will-change:transform}
 .portfolio-cursor.is-visible{opacity:1}
 .portfolio-cursor.is-interactive{width:40px;height:40px}
 @media(hover:hover) and (pointer:fine){

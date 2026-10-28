@@ -149,11 +149,15 @@ function playFilmSound(){
 // Clip content to the same scaled rounded outline as the background.
 if(!reducedMotion){
  const journey=document.querySelector('.film-experience');
- let journeyFrame=0;
+ let journeyFrame=0,lastJourneyProgress=-1;
  const updateJourneyShape=()=>{
   journeyFrame=0;
-  const top=journey.getBoundingClientRect().top;
+  const rect=journey.getBoundingClientRect();
+  if(rect.bottom<0||rect.top>innerHeight)return;
+  const top=rect.top;
   const progress=Math.min(1,Math.max(0,(innerHeight-top)/(innerHeight*.6)));
+  if(progress===lastJourneyProgress)return;
+  lastJourneyProgress=progress;
   const finalRadius=innerWidth<=760?24:innerWidth*50/1920;
   const initialRadius=Math.min(608,innerWidth*.5);
   journey.style.setProperty('--journey-radius',`${initialRadius+(finalRadius-initialRadius)*progress}px`);
@@ -168,7 +172,7 @@ if(!reducedMotion){
  };
  const queueJourneyShape=()=>{if(!journeyFrame)journeyFrame=requestAnimationFrame(updateJourneyShape);};
  addEventListener('scroll',queueJourneyShape,{passive:true});
- addEventListener('resize',queueJourneyShape);
+ addEventListener('resize',()=>{lastJourneyProgress=-1;queueJourneyShape();});
  updateJourneyShape();
 }
 
@@ -197,6 +201,7 @@ if(!reducedMotion){
  const updateContactMotion=()=>{
   contactFrame=0;
   const rect=landscape.getBoundingClientRect();
+  if(rect.bottom<0||rect.top>innerHeight)return;
   const progress=Math.max(0,Math.min(1,(innerHeight-rect.top)/(innerHeight+rect.height)));
   finalLine.style.transform=`translate3d(${(progress-.5)*50}%,0,0)`;
  };
@@ -326,7 +331,7 @@ if(!reducedMotion){
   dot.classList.toggle('is-interactive',Boolean(event.target.closest(interactive)));
   if(!cursorFrame)cursorFrame=requestAnimationFrame(()=>{
    cursorFrame=0;
-   dot.style.left=cursorX+'px';dot.style.top=cursorY+'px';
+   dot.style.transform=`translate3d(${cursorX}px,${cursorY}px,0) translate(-50%,-50%)`;
    dot.classList.add('is-visible');
    document.documentElement.classList.add('has-dot-cursor');
   });
