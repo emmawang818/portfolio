@@ -1,0 +1,189 @@
+[
+  {
+    "id": "2508:102801",
+    "name": "P01｜项目封面",
+    "y": 2798,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-01.png"
+  },
+  {
+    "id": "2508:101774",
+    "name": "P02｜项目概览",
+    "y": 4101,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-02.png"
+  },
+  {
+    "id": "2508:101625",
+    "name": "P03｜背景与挑战",
+    "y": 5355,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-03.png"
+  },
+  {
+    "id": "2508:102028",
+    "name": "P04｜用户痛点",
+    "y": 6609,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-04.png"
+  },
+  {
+    "id": "2508:102844",
+    "name": "P05｜竞品与机会",
+    "y": 7826,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-05.png"
+  },
+  {
+    "id": "2508:101909",
+    "name": "P06｜产品策略",
+    "y": 9129,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-06.png"
+  },
+  {
+    "id": "2508:104477",
+    "name": "P10｜富媒体卡片体系",
+    "y": 10392,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-07.png"
+  },
+  {
+    "id": "2508:104658",
+    "name": "P10｜富媒体卡片体系",
+    "y": 11655,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-08.png"
+  },
+  {
+    "id": "2508:104862",
+    "name": "P10｜富媒体卡片体系",
+    "y": 12918,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-09.png"
+  },
+  {
+    "id": "2508:102995",
+    "name": "P07｜多端容器体系",
+    "y": 14165,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-10.png"
+  },
+  {
+    "id": "2508:103258",
+    "name": "P07｜多端容器体系",
+    "y": 15380,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-11.png"
+  },
+  {
+    "id": "2508:102126",
+    "name": "P08｜LUI+GUI 核心链路",
+    "y": 16596,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-12.png"
+  },
+  {
+    "id": "2508:103508",
+    "name": "P09｜场景化操作指导",
+    "y": 17809,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-13.png"
+  },
+  {
+    "id": "2508:104342",
+    "name": "P10｜富媒体卡片体系",
+    "y": 19057,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-14.png"
+  },
+  {
+    "id": "2508:103604",
+    "name": "P11｜场景感知的快捷技能",
+    "y": 20304,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-15.png"
+  },
+  {
+    "id": "2508:104169",
+    "name": "P12｜安全确认",
+    "y": 21551,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-16.png"
+  },
+  {
+    "id": "2508:104916",
+    "name": "P14｜项目成果与指标",
+    "y": 22839,
+    "width": 1920,
+    "height": 1080,
+    "format": "png",
+    "original_width": 1920,
+    "original_height": 1080,
+    "file": "page-17.png"
+  }
+]
