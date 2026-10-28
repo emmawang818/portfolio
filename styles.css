@@ -21,8 +21,8 @@ html{scroll-snap-type:none}
 .js-motion .about:not(.is-developed) .about-copy{opacity:0;transform:translateY(8px)}
 .stars-crop{z-index:3;pointer-events:none}
 .star-field{position:absolute;inset:5.99% -.00% -5.99% -.01%}
-.silver-star{position:absolute;display:block;background-image:url('assets/asset-4.png');background-size:var(--sprite-size);background-position:var(--sprite-pos);background-repeat:no-repeat;pointer-events:auto;isolation:isolate;transition:transform 380ms ease-out}
-.silver-star::after{content:'';position:absolute;inset:0;opacity:0;background:linear-gradient(115deg,transparent 25%,#fff0 40%,#fff 50%,#fff0 60%,transparent 75%);background-size:300% 100%;background-position:100% 0;mask-image:url('assets/asset-4.png');mask-size:var(--sprite-size);mask-position:var(--sprite-pos);mask-repeat:no-repeat;-webkit-mask-image:url('assets/asset-4.png');-webkit-mask-size:var(--sprite-size);-webkit-mask-position:var(--sprite-pos);-webkit-mask-repeat:no-repeat;mix-blend-mode:screen;pointer-events:none}
+.silver-star{position:absolute;display:block;background-image:url('assets/asset-4.webp');background-size:var(--sprite-size);background-position:var(--sprite-pos);background-repeat:no-repeat;pointer-events:auto;isolation:isolate;transition:transform 380ms ease-out}
+.silver-star::after{content:'';position:absolute;inset:0;opacity:0;background:linear-gradient(115deg,transparent 25%,#fff0 40%,#fff 50%,#fff0 60%,transparent 75%);background-size:300% 100%;background-position:100% 0;mask-image:url('assets/asset-4.webp');mask-size:var(--sprite-size);mask-position:var(--sprite-pos);mask-repeat:no-repeat;-webkit-mask-image:url('assets/asset-4.webp');-webkit-mask-size:var(--sprite-size);-webkit-mask-position:var(--sprite-pos);-webkit-mask-repeat:no-repeat;mix-blend-mode:screen;pointer-events:none}
 @media(hover:hover) and (pointer:fine){.silver-star:hover{transform:rotate(3deg)}.silver-star:hover::after{animation:star-glint 560ms ease-out 1}}
 @keyframes star-glint{0%{background-position:100% 0;opacity:0}20%{opacity:.7}75%{opacity:.7}100%{background-position:0% 0;opacity:0}}
 @media(max-width:760px){.photo-back p{font-size:clamp(15px,4.1vw,27px)}}

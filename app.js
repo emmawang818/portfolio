@@ -5,12 +5,12 @@ const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(ent
 document.querySelectorAll('[data-section]').forEach(s=>observer.observe(s));
 const dialog=document.querySelector('#info-dialog');function showInfo(title,copy){document.querySelector('#dialog-title').textContent=title;document.querySelector('#dialog-copy').textContent=copy;dialog.showModal();}document.querySelector('.close-dialog').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 document.querySelector('#resume').onclick=()=>{const link=document.createElement('a');link.href='assets/resume/wang-lulu-resume.pdf?v=a1773af47a2d';link.download='王露露-交互设计3年经验.pdf';document.body.append(link);link.click();link.remove();};
-const projects=[{name:'AI Pilot',image:'assets/project-covers/ai-pilot.png',year:'2024 – 2025',type:'AI AGENT'},{name:'AI Optimization',image:'assets/project-covers/ai-optimization.png',year:'2025',type:'PC /OPTIMIZATION TOOL'},{name:'E-Workflow',image:'assets/project-covers/e-workflow.png',year:'2025',type:'MOBILE APP'}];let selected=0;const tabs=[...document.querySelectorAll('[data-project]')];function selectProject(index){if(index===selected)return;selected=index;tabs.forEach((b,i)=>{b.classList.toggle('active',i===index);b.setAttribute('aria-selected',String(i===index));b.tabIndex=i===index?0:-1;});const p=projects[index];document.querySelector('#project-year').textContent=p.year||'SELECTED WORK';document.querySelector('#project-preview').setAttribute('aria-labelledby','project-'+index);document.querySelector('#open-project').setAttribute('aria-label','View '+p.name+' project');advanceProjectFilm(p);}
+const projects=[{name:'AI Pilot',image:'assets/project-covers/ai-pilot.webp',year:'2024 – 2025',type:'AI AGENT'},{name:'AI Optimization',image:'assets/project-covers/ai-optimization.webp',year:'2025',type:'PC /OPTIMIZATION TOOL'},{name:'E-Workflow',image:'assets/project-covers/e-workflow.webp',year:'2025',type:'MOBILE APP'}];let selected=0;const tabs=[...document.querySelectorAll('[data-project]')];function selectProject(index){if(index===selected)return;selected=index;tabs.forEach((b,i)=>{b.classList.toggle('active',i===index);b.setAttribute('aria-selected',String(i===index));b.tabIndex=i===index?0:-1;});const p=projects[index];document.querySelector('#project-year').textContent=p.year||'SELECTED WORK';document.querySelector('#project-preview').setAttribute('aria-labelledby','project-'+index);document.querySelector('#open-project').setAttribute('aria-label','View '+p.name+' project');advanceProjectFilm(p);}
 tabs.forEach((b,i)=>{b.addEventListener('click',()=>{if(i===0){window.location.href='ai-pilot.html';return;}if(i===1){window.location.href='ai-optimization.html';return;}if(i===2){window.location.href='e-workflow.html';return;}selectProject(i);});b.addEventListener('keydown',e=>{let n=i;if(e.key==='ArrowDown'||e.key==='ArrowRight')n=(i+1)%3;else if(e.key==='ArrowUp'||e.key==='ArrowLeft')n=(i+2)%3;else if(e.key==='Home')n=0;else if(e.key==='End')n=2;else return;e.preventDefault();selectProject(n);tabs[n].focus();});});document.querySelector('#open-project').onclick=()=>{if(selected===0){window.location.href='ai-pilot.html';return;}if(selected===1){window.location.href='ai-optimization.html';return;}if(selected===2){window.location.href='e-workflow.html';return;}showInfo(projects[selected].name,'The full case study is coming soon. Get in touch to learn more about this project.');};
 let toastTimer;function toast(message){const el=document.querySelector('.toast');el.textContent=message;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),3000);}document.querySelector('#wechat').onclick=async()=>{try{await navigator.clipboard.writeText('Aster_1220');toast('WeChat ID copied');}catch{toast('WeChat: Aster_1220');}};
 const mood=document.querySelector('.mood');
 const homeMusic=new Audio('assets/audio/hollywood.mp3');
-homeMusic.preload='metadata';
+homeMusic.preload='none';
 homeMusic.loop=true;
 homeMusic.volume=.45;
 mood.title='Hollywood — 黑裙子';
@@ -51,7 +51,9 @@ tabs.forEach(tab=>projectScroll.observe(tab));
 const photoDeck=document.querySelector('.photo-deck');
 const deckCards=[...photoDeck.querySelectorAll('.polaroid-card')];
 let deckBusy=false,deckTurns=0;
-function layOutDeck(){deckCards.forEach((card,i)=>{card.dataset.slot=String(Math.min(i,7));card.style.zIndex=String(deckCards.length-i);});}
+function loadUpcomingCards(){deckCards.slice(0,9).forEach(card=>{const img=card.querySelector('img');if(img.dataset.src){img.src=img.dataset.src;delete img.dataset.src;} });}
+loadUpcomingCards();
+function layOutDeck(){loadUpcomingCards();deckCards.forEach((card,i)=>{card.dataset.slot=String(Math.min(i,7));card.style.zIndex=String(deckCards.length-i);});}
 photoDeck.addEventListener('click',async()=>{
  if(deckBusy)return;
  deckBusy=true;
@@ -59,6 +61,8 @@ photoDeck.addEventListener('click',async()=>{
  const start=getComputedStyle(card).transform;
  const sideways='translate(108%,-7%) rotate(16deg) rotateY(-16deg)';
  try{
+  const nextPhoto=deckCards[1].querySelector('img');
+  try{await nextPhoto.decode();}catch{return;}
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
    const out=card.animate([{transform:start},{transform:sideways}],{duration:360,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
    await out.finished;
@@ -83,12 +87,22 @@ bioGrowth.observe(bio);
 // Decode before advancing; a newer selection cancels any unfinished advance.
 let filmRequest=0;
 const filmImage=document.querySelector('.preview-image>img');
-const filmPreloads=new Map(projects.map(project=>{const img=new Image();img.src=project.image;return [project.image,img];}));
+const filmPreloads=new Map();
+function getProjectImage(project){
+ if(!filmPreloads.has(project.image)){const img=new Image();img.decoding='async';img.src=project.image;filmPreloads.set(project.image,img);}
+ return filmPreloads.get(project.image);
+}
+const projectImageObserver=new IntersectionObserver(entries=>{
+ if(entries.some(entry=>entry.isIntersecting)){
+  projects.forEach(getProjectImage);projectImageObserver.disconnect();
+ }
+},{rootMargin:'300px'});
+projectImageObserver.observe(document.querySelector('#projects'));
 async function advanceProjectFilm(project){
  const request=++filmRequest;
  filmImage.getAnimations().forEach(animation=>animation.cancel());
  filmSound.pause();
- const next=filmPreloads.get(project.image);
+ const next=getProjectImage(project);
  try{await next.decode();}catch{return;}
  if(request!==filmRequest)return;
  playFilmSound();
@@ -118,7 +132,7 @@ async function advanceProjectFilm(project){
 }
 
 const filmSound=new Audio('assets/audio/projector-advance-light.m4a');
-filmSound.preload='auto';filmSound.volume=.22;
+filmSound.preload='none';filmSound.volume=.22;
 const filmSoundButton=document.querySelector('#film-sound');
 let filmSoundEnabled=true;
 filmSoundButton.addEventListener('click',()=>{
