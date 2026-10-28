@@ -107,7 +107,7 @@ async function advanceProjectFilm(project){
  try{await next.decode();}catch{return;}
  if(request!==filmRequest)return;
  playFilmSound();
- if(reducedMotion||mobileEffects){filmImage.src=project.image;filmImage.alt=project.name+' project cover';return;}
+ if(reducedMotion||mobileEffects){filmImage.style.backgroundImage='none';filmImage.src=project.image;filmImage.alt=project.name+' project cover';return;}
  try{
   const exit=filmImage.animate([
    {transform:'translateY(0)',filter:'brightness(1) blur(0px)',opacity:1,offset:0},
@@ -118,7 +118,7 @@ async function advanceProjectFilm(project){
   if(request!==filmRequest)return;
   await new Promise(resolve=>setTimeout(resolve,110));
   if(request!==filmRequest)return;
-  filmImage.src=project.image;filmImage.alt=project.name+' project cover';
+  filmImage.style.backgroundImage='none';filmImage.src=project.image;filmImage.alt=project.name+' project cover';
   exit.cancel();
   const enter=filmImage.animate([
    {transform:'translateY(108%)',filter:'brightness(.45) blur(2px)',opacity:0,offset:0},
@@ -377,4 +377,11 @@ if(!reducedMotion){
   glowLayers.push(layer);glowObserver.observe(layer);glowResize.observe(layer);
  });
  document.addEventListener('visibilitychange',syncGlow);
+}
+
+// Mobile webviews can postpone native lazy images until after a fast swipe.
+if(mobileEffects){
+ const upcomingImages=[...document.querySelectorAll('#about img,#experience img,#projects img,#contact img')];
+ upcomingImages.forEach(img=>{img.loading='eager';img.fetchPriority='low';});
+ projects.forEach(getProjectImage);
 }
