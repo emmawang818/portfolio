@@ -415,3 +415,15 @@ html{scroll-snap-type:none}
  100%{transform:translate3d(0,calc(var(--rise)*-1),0);opacity:0}
 }
 @media(prefers-reduced-motion:reduce){.ambient-glow{display:none}}
+
+/* Phone rendering budget: keep texture and light motion without full-area repaints. */
+@media(max-width:760px) and (pointer:coarse){
+ .contact-landscape::after,.experience.film-experience::after{inset:0;animation:none!important;will-change:auto!important}
+ .film-title,.contact-line,.contact-line.line-four>span{animation:none!important}
+ .side-nav{mix-blend-mode:normal}
+ .ambient-glow i{box-shadow:0 0 10px 2px #ffffff70}
+ .polaroid-card::before{mix-blend-mode:normal}
+ .contact-line.line-four{will-change:auto}
+}
+
+@media(max-width:760px) and (pointer:coarse){.js-motion .film-experience::before{border-radius:24px;transform:none}}

@@ -1,3 +1,4 @@
+const mobileEffects=matchMedia('(max-width: 760px) and (pointer: coarse)').matches;
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 if(!reducedMotion)document.documentElement.classList.add('js-motion');
 const links=[...document.querySelectorAll('.side-nav a')];
@@ -51,7 +52,7 @@ tabs.forEach(tab=>projectScroll.observe(tab));
 const photoDeck=document.querySelector('.photo-deck');
 const deckCards=[...photoDeck.querySelectorAll('.polaroid-card')];
 let deckBusy=false,deckTurns=0;
-function loadUpcomingCards(){deckCards.slice(0,9).forEach(card=>{const img=card.querySelector('img');if(img.dataset.src){img.src=img.dataset.src;delete img.dataset.src;} });}
+function loadUpcomingCards(){deckCards.slice(0,9).forEach(card=>{const img=card.querySelector('img');if(img.dataset.src){if(img.dataset.srcset){img.srcset=img.dataset.srcset;delete img.dataset.srcset;}img.src=img.dataset.src;delete img.dataset.src;} });}
 loadUpcomingCards();
 function layOutDeck(){loadUpcomingCards();deckCards.forEach((card,i)=>{card.dataset.slot=String(Math.min(i,7));card.style.zIndex=String(deckCards.length-i);});}
 photoDeck.addEventListener('click',async()=>{
@@ -106,7 +107,7 @@ async function advanceProjectFilm(project){
  try{await next.decode();}catch{return;}
  if(request!==filmRequest)return;
  playFilmSound();
- if(reducedMotion){filmImage.src=project.image;filmImage.alt=project.name+' project cover';return;}
+ if(reducedMotion||mobileEffects){filmImage.src=project.image;filmImage.alt=project.name+' project cover';return;}
  try{
   const exit=filmImage.animate([
    {transform:'translateY(0)',filter:'brightness(1) blur(0px)',opacity:1,offset:0},
@@ -147,7 +148,7 @@ function playFilmSound(){
 }
 
 // Clip content to the same scaled rounded outline as the background.
-if(!reducedMotion){
+if(!reducedMotion&&!mobileEffects){
  const journey=document.querySelector('.film-experience');
  let journeyFrame=0,lastJourneyProgress=-1;
  const updateJourneyShape=()=>{
@@ -194,7 +195,7 @@ function updateContactClock(){
 updateContactClock();setInterval(updateContactClock,1000);
 document.querySelector('#back-to-top').addEventListener('click',()=>{window.scrollTo({top:0,behavior:reducedMotion?'instant':'smooth'});});
 // Reference motion: the final arrow/word line tracks scroll horizontally.
-if(!reducedMotion){
+if(!reducedMotion&&!mobileEffects){
  const landscape=document.querySelector('.contact-landscape');
  const finalLine=document.querySelector('.contact-statement .line-four');
  let contactFrame=0;
@@ -259,7 +260,7 @@ if(!reducedMotion){
 
 
 // Film-window parallax: retain the frame and pan only the photograph.
-if(!reducedMotion){
+if(!reducedMotion&&!mobileEffects){
  const filmWindow=document.querySelector('.film-art');
  const portraitPhotos=new Set(['18','23','16','17','15']);
  const filmPans=[...filmWindow.querySelectorAll('.journey-film-frame')].map((frame,index)=>{
@@ -359,7 +360,7 @@ if(!reducedMotion){
   const layer=document.createElement('div');
   layer.className='ambient-glow';
   layer.setAttribute('aria-hidden','true');
-  const count=panel.matches('.contact-footer')?14:28;
+  const count=mobileEffects?8:(panel.matches('.contact-footer')?14:28);
   for(let i=0;i<count;i++){
    const dot=document.createElement('i');
    // Distribute lights without clustering or synchronized launch times.

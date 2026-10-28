@@ -39,7 +39,8 @@
  const layer=document.createElement('div');
  layer.className='ambient-glow';
  layer.setAttribute('aria-hidden','true');
- for(let i=0;i<28;i++){
+ const particleCount=matchMedia('(max-width:760px) and (pointer:coarse)').matches?8:28;
+ for(let i=0;i<particleCount;i++){
   const dot=document.createElement('i');
   const phase=(i*.61803398875)%1;
   dot.style.setProperty('--x',((i*43.7)%100)+'%');
